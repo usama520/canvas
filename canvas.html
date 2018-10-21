@@ -1,0 +1,524 @@
+<html>
+    <head>
+        <title>CanvasEdit - Free Online Image and Collage Editor | TechSlides</title>
+        <link rel="stylesheet" href="css/uikit.almost-flat.min.css" />
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/jquery.nouislider.css" />
+        <link rel="stylesheet" href="css/spectrum.css" type="text/css">
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-941940-28']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+
+  <div id="moremodal" class="uk-modal" style="display: none; padding-right: 15px;">
+    <div class="uk-modal-dialog">
+      <a href="#" class="uk-modal-close uk-close"></a>
+      <h1>About CanvasEdit</h1>
+      <p>Powerful online image editor and collage builder written in HTML5. Here are the highlights:</p>
+      <ul>
+       <li>Supports multiple images, webcam photos, text, shapes, and custom svg</li>
+       <li>Includes many image effects like greyscale, opacity, brightness, etc</li>
+       <li>Preset Instagram filters (1977, Brannan, Gotham, Hefe, etc)</li>
+       <li>Mousewheel zoom, custom zoom, custom scaling, rotation/angle control and object cropping, clipping, and cloning</li>
+       <li>History tracking with undo and redo functionality</li>
+       <li>Save to PNG or JPEG</li>
+      </ul>
+      <p>To learn more, check out the <a href="http://techslides.com/online-image-editor-and-photo-collage-maker/">article</a>.</p>
+    </div>
+  </div>
+
+  <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+    <div class="uk-alert uk-alert-danger" data-uk-alert="">
+      <a href="#" class="uk-alert-close uk-close"></a>
+      <p>Error Message</p>
+    </div>
+
+    <div id="canvasoptions" class="uk-panel uk-panel-box uk-hidden">
+      <div class="uk-clearfix">
+
+        <div class="btn-group uk-hidden-small">
+          <div>
+            <strong>Objects: </strong>
+            <span id="canvasobjects">0</span>
+          </div>
+          <div>
+            <strong>Complexity: </strong>
+            <span id="canvascomplexity">0</span>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button id="autofit" class="uk-button uk-active">Responsive Canvas</button>
+        </div>
+
+        <div id="canvasWH" class="btn-group">
+          <strong class="uk-hidden-small">Width: </strong>
+          <input type="number" id="canvasW" />
+          <strong class="uk-hidden-small">Height: </strong>
+          <input type="number" id="canvasH" value="500" />
+        </div>
+
+        <div id="cancolor" class="btn-group">
+          <strong class="uk-hidden-small">Color: </strong> <input type="text" value="" id="canvascolor" class="colorp">
+        </div>
+
+        <div class="btn-group">
+          <a id="closeCC" href="#" class="uk-alert-close uk-close"></a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="uk-width-1-1 uk-text-center">
+      <h1 id="h1title" class="uk-heading-bold">Photo Collage and Image Editor <a href="#" class="uk-badge" data-uk-modal="{target:'#moremodal'}"><i class="uk-icon-info-circle"></i></a></h1>
+    </div>
+
+    <div class="uk-grid relative">
+
+      <div id="main" class="uk-width-xlarge-1-1">
+
+        <nav class="uk-navbar">
+
+          <ul class="uk-navbar-nav">
+            <li><a id="addImages" href="#"><i class="uk-icon-picture-o"></i> <span class="uk-hidden-small"> Image(s)</span></a></li>
+            <li><a href="#" id="addWebcam" data-uk-modal="{target:'#webcam'}"><i class="uk-icon-camera"></i> <span class="uk-hidden-small"> Webcam</span></a></li>
+            <li><a id="addText" href="#"><i class="uk-icon-font"></i> <span class="uk-hidden-small"> Text</span></a></li>
+            <li class="uk-parent" data-uk-dropdown="{mode:'click'}">
+                <a href="#"><i class="uk-icon-circle"></i> <span class="uk-hidden-small"> Shape</span> <i class="uk-icon-caret-down"></i></a>
+
+                <div class="uk-dropdown uk-dropdown-navbar">
+                  <ul class="uk-nav uk-nav-navbar">
+                    <li><a id="addRectangle" href="#">Rectangle</a></li>
+                    <li><a id="addCircle" href="#">Circle</a></li>
+                    <li><a id="addCloud" href="#">Cloud</a></li>
+                    <li><a href="#" data-uk-modal="{target:'#modal'}">SVG</a></li>
+                  </ul>
+                </div>
+            </li>
+            <li><a id="drawtoggle" href="#"><i class="uk-icon-pencil"></i> <span class="uk-hidden-small"> Draw</span></a></li>
+            <li><a id="clear" href="#"><i class="uk-icon-eraser"></i> <span class="uk-hidden-small"> Clear</span></a></li>
+
+            <li class="uk-parent" data-uk-dropdown="{mode:'click'}">
+                <a href="#"><i class="uk-icon-download"></i> <span class="uk-hidden-small"> Save</span> <i class="uk-icon-caret-down"></i></a>
+
+                <div class="uk-dropdown uk-dropdown-navbar">
+                    <ul class="uk-nav uk-nav-navbar">
+                        <li><a id="savePNG" href="#">PNG</a></li>
+                        <li><a id="saveJPG" href="#">JPG</a></li>
+                    </ul>
+                </div>
+            </li>
+
+          </ul>
+
+          <div class="uk-navbar-flip">
+            <ul class="uk-navbar-nav">
+              <li><a href="#" id="canvasinfo" data-uk-toggle="{target:'#canvasoptions'}"><i class="uk-icon-small uk-icon-cog"></i></a></li>
+            </ul>
+          </div>
+        </nav>
+
+        
+
+        <canvas id="canvas"></canvas>
+
+        <div id="images"></div>
+
+      </div>
+
+      <div id="drawOptions" class="uk-clearfix uk-width-xlarge-1-1">
+
+        <div class="btn-group">
+          <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+
+            <a class="uk-button dropdown-toggle">Mode <i class="uk-icon-caret-up"></i></a>
+
+            <div class="uk-dropdown uk-dropdown-up">
+              <ul id="drawing-mode-selector" class="uk-nav uk-nav-dropdown">
+                <li><a data-edit="Pencil" class="selected">Pencil</a></li>
+                <li><a data-edit="Circle">Circle</a></li>
+                <li><a data-edit="Spray">Spray</a></li>
+                <li><a data-edit="Pattern">Pattern</a></li>
+                <li><a data-edit="hline">hline</a></li>
+                <li><a data-edit="vline">vline</a></li>
+                <li><a data-edit="square">square</a></li>
+                <li><a data-edit="diamond">diamond</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+           
+        <div class="btn-group doublebtn">
+          <button class="uk-button">Line</button>
+          <input type="text" value="" id="drawing-color" class="noempty">
+        </div>
+
+        <div id="lineslider" class="btn-group">
+          <div class="slider-value"><span>Line Width: </span><span id="slider-line-value">1</span></div>
+          <div class="slider" id="slider-line"></div>
+        </div>
+
+      </div>
+
+      <div id="textOptions" class="uk-clearfix uk-width-xlarge-1-1">
+
+        <div class="btn-group">
+          <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+
+            <a class="uk-button dropdown-toggle">
+              <i class="uk-icon-font"></i>
+              <i class="uk-icon-caret-up icontwo"></i>
+            </a>
+
+            <div class="uk-dropdown uk-dropdown-up">
+              <ul class="uk-nav uk-nav-dropdown dropdown-menu">
+                <li><a data-edit="Serif" style="font-family:'Serif'">Serif</a></li>
+                <li><a data-edit="Sans" style="font-family:'Sans'">Sans</a></li>
+                <li><a data-edit="Arial" class="selected" style="font-family:'Arial'">Arial</a></li>
+                <li><a data-edit="Arial Black" style="font-family:'Arial Black'">Arial Black</a></li>
+                <li><a data-edit="Courier" style="font-family:'Courier'">Courier</a></li>
+                <li><a data-edit="Courier New" style="font-family:'Courier New'">Courier New</a></li>
+                <li><a data-edit="Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li>
+                <li><a data-edit="Helvetica" style="font-family:'Helvetica'">Helvetica</a></li>
+                <li><a data-edit="Impact" style="font-family:'Impact'">Impact</a></li>
+                <li><a data-edit="Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li>
+                <li><a data-edit="Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li>
+                <li><a data-edit="Tahoma" style="font-family:'Tahoma'">Tahoma</a></li>
+                <li><a data-edit="Times" style="font-family:'Times'">Times</a></li>
+                <li><a data-edit="Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li>
+                <li><a data-edit="Verdana" style="font-family:'Verdana'">Verdana</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <a class="uk-button fontWeight" href="#"><i class="uk-icon-bold"></i></a>
+          <a class="uk-button fontStyle" href="#"><i class="uk-icon-italic"></i></a>
+          <a class="uk-button strikethrough uk-hidden-small" href="#"><i class="uk-icon-strikethrough"></i></a>
+          <a class="uk-button underline uk-hidden-small" href="#"><i class="uk-icon-underline"></i></a>
+        </div>
+
+        <div class="btn-group">
+            <a class="uk-button" id="fontSizePlus">
+              <span class="uk-icon-font"></span>
+              <span class="uk-icon-plus icontwo"></span>
+            </a>
+            <a class="uk-button" id="fontSizeMinus">
+              <span class="uk-icon-font"></span>
+              <span class="uk-icon-minus icontwo"></span>
+            </a> 
+        </div>
+
+        <div class="btn-group uk-hidden-small uk-hidden-medium">
+          <a class="uk-button textalign" data-edit="left" href="#"><i class="uk-icon-align-left"></i></a>
+          <a class="uk-button textalign" data-edit="center" href="#"><i class="uk-icon-align-center"></i></a>
+          <a class="uk-button textalign" data-edit="right" href="#"><i class="uk-icon-align-right"></i></a>
+          <a class="uk-button textalign" data-edit="justify" href="#"><i class="uk-icon-align-justify"></i></a>
+        </div>
+
+        <div class="btn-group uk-hidden-small">
+            <a class="uk-button" id="lineHeightPlus">
+              <span class="uk-icon-text-height"></span>
+              <span class="uk-icon-plus"></span>
+            </a>
+            <a class="uk-button" id="lineHeightMinus">
+              <span class="uk-icon-text-height"></span>
+              <span class="uk-icon-minus"></span>
+            </a> 
+        </div>
+
+        <div class="btn-group doublebtn">
+          <button class="uk-button">Text</button>
+          <input type="text" value="" id="textcolor" class="noempty">
+        </div>
+                      
+        <div class="btn-group doublebtn uk-hidden-small uk-hidden-medium">
+          <button class="uk-button">Back</button>
+          <input type="text" value="" id="bgcolor" class="colorp">
+        </div>
+
+      </div>
+
+
+      <div id="allOptions" class="uk-width-xlarge-1-1">
+        <div class="tm-grid-truncate">
+          <div class="uk-grid" data-uk-grid-margin>
+
+            <div class="uk-width-small-1-2 uk-width-medium-1-2 uk-width-large-1-2">
+
+              <div class="uk-panel uk-panel-box">
+
+                <div id="colorThief"></div>
+
+                <div class="uk-clearfix">
+
+                  <div class="block">
+                    <label>Pos X:</label>
+                    <input type="number" id="objPosX" value="">
+                  </div>
+                                  
+                  <div class="block">
+                    <label>Pos Y:</label>
+                    <input type="number" id="objPosY" value="">
+                  </div>
+
+                  <div class="block">
+                    <label>Scale X:</label>
+                    <input type="number" id="objScaleX" value="" step="0.1">
+                  </div>
+
+                  <div class="block">
+                    <label>Scale Y:</label>
+                    <input type="number" id="objScaleY" value="" step="0.1">
+                  </div>
+
+                  <div class="block">
+                    <label>Width:</label>
+                    <input type="number" id="objWidth" value="">                          
+                  </div>
+        
+                  <div class="block">
+                    <label>Height:</label>
+                    <input type="number" id="objHeight" value="">
+                  </div>
+                                  
+                  <div class="block">
+                    <label>Angle:</label>
+                    <input type="number" id="objAngle" value="">
+                  </div>
+                                 
+                  <div class="block">
+                    <button id="flipx" class="uk-button">Flip Horizontal</button>
+                  </div>
+                  <div class="block">
+                    <button id="flipy" class="uk-button">Flip Vertical</button>
+                  </div>
+
+                </div>                     
+
+                <div class="imageOptions">
+                  <h4>Image Filters</h4>
+                  <div>
+                    <button id="grayscale" class="uk-button">Grayscale</button>
+                    <button id="invert" class="uk-button">Invert</button>
+                    <button id="sepia" class="uk-button">Sepia</button>
+                    <button id="sepia2" class="uk-button">Sepia2</button>
+                    <button id="blur" class="uk-button">Blur</button>
+                    <button id="sharpen" class="uk-button">Sharpen</button>
+                    <button id="emboss" class="uk-button">Emboss</button>
+                  </div>
+
+                  <h4>Instagram Filters</h4>
+                  <div>
+                    <button id="nine" class="uk-button">1977</button>
+                    <button id="brannan" class="uk-button">Brannan</button>
+                    <button id="gotham" class="uk-button">Gotham</button>
+                    <button id="hefe" class="uk-button">Hefe</button>
+                    <button id="lordkelvin" class="uk-button">Lord Kelvin</button>
+                    <button id="nashville" class="uk-button">Nashville</button>
+                    <button id="xpro" class="uk-button">X-PRO II</button>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <div class="uk-width-small-1-2 uk-width-medium-1-2 uk-width-large-1-2">
+              <div id="rightpanel" class="uk-panel uk-panel-box">
+
+                <ul class="uk-nav uk-nav-side uk-nav-parent-icon" data-uk-nav>
+
+                  <li class="pad15">
+
+                    <div class="slider-wrapper uk-clearfix">                          
+                      <div class="slider-value"><span>Opacity: </span><span id="slider-opacity-value">0</span></div>
+                      <div class="slider" id="slider-opacity"></div>
+                    </div>
+
+                    <div class="buttons">
+                      <button id="undo" class="uk-button">Undo</button>
+                      <button id="redo" class="uk-button">Redo</button>
+                      
+                      <button class="uk-button" onclick="canvas.getActiveObject().bringToFront();">Bring to Front</button>
+                      <button class="uk-button" onclick="canvas.getActiveObject().sendToBack()">Send to Back</button>
+
+                      <button class="uk-button" id="startCrop">Crop</button>
+                      <button class="uk-button uk-button-primary" id="applycrop">Apply Crop</button>
+
+                      <button class="uk-button" onclick="canvas.getActiveObject().bringForward()">Bring Forwards</button>
+                      <button class="uk-button" onclick="canvas.getActiveObject().sendBackwards();">Send Backwards</button>
+
+                      <button class="uk-button" id="shadowify">Shadow</button>
+                      <button id="clone" class="uk-button">Clone</button>
+
+                      <button class="uk-button uk-button-danger" id="delete">Delete</button>
+
+                      <button class="uk-button" id="canvasfit">Resize Canvas to Object</button>
+                      <button class="uk-button" id="objectfit">Resize Object to Canvas</button>
+                    </div>
+
+                  </li>
+
+                  <li class="imageOptions uk-nav-divider"></li>
+                  <li class="imageOptions uk-parent">
+                    <a href="#"><strong>Brightness</strong> <span id="slider-brightness-value">0</span></a>
+                    <ul class="uk-nav-sub">
+                      <li>
+                        <div class="slider-full uk-clearfix">
+                          <div class="slider fullslider" id="slider-brightness"></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="imageOptions uk-parent">
+                    <a href="#"><strong>Contrast</strong> <span id="slider-contrast-value">0</span></a>
+                    <ul class="uk-nav-sub">
+                      <li>
+                        <div class="slider-full uk-clearfix">                          
+                          <div class="slider fullslider" id="slider-contrast"></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="imageOptions uk-parent">
+                    <a href="#"><strong>Exposure</strong> <span id="slider-exposure-value">0</span></a>
+                    <ul class="uk-nav-sub">
+                      <li>
+                        <div class="slider-full uk-clearfix">                          
+                          <div class="slider fullslider" id="slider-exposure"></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="imageOptions uk-parent">
+                    <a href="#"><strong>Pixelate</strong> <span id="slider-pixelate-value">0</span></a>
+                    <ul class="uk-nav-sub">
+                      <li>
+                        <div class="slider-full uk-clearfix">                          
+                          <div class="slider fullslider" id="slider-pixelate"></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="imageOptions uk-parent">
+                    <a href="#"><strong>Noise</strong> <span id="slider-noise-value">0</span></a>
+                    <ul class="uk-nav-sub">
+                      <li>
+                        <div class="slider-full uk-clearfix">                          
+                          <div class="slider fullslider" id="slider-noise"></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+
+                  <li class="imageOptions uk-parent">
+                    <a href="#"><strong>Convolution Matrix</strong></a>
+                    <ul class="uk-nav-sub">
+                      <li>
+                        <div class="uk-clearfix">  
+                          <div id="customMatrix">
+                            <input type="text" value="1" size="3">
+                            <input type="text" value="1" size="3">
+                            <input type="text" value="1" size="3">
+                            <br>
+                            <input type="text" value="1" size="3">
+                            <input type="text" value="0.7" size="3">
+                            <input type="text" value="-1" size="3">
+                            <br>
+                            <input type="text" value="-1" size="3">
+                            <input type="text" value="-1" size="3">
+                            <input type="text" value="-1" size="3">
+                          </div>
+                          <div id="convoluteButtons">
+                            <button id="convolute" class="uk-button uk-button-primary">Process</button>
+                            <button id="undoConvolute" class="uk-button uk-button-danger">Undo</button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+
+                  <li class="imageOptions uk-parent">
+                    <a href="#"><strong>Color Tint</strong> <span id="slider-tint-value">0</span> <span id="tint-color-value" style="background-color:#000000"> #000000 </span></a>
+                    <ul class="uk-nav-sub">
+                      <li>
+                        <div id="tintcolor">
+                          <input type="text" value="" class="noempty" id="tint-color">
+                        </div>
+                        <div class="slider-full uk-clearfix">                          
+                          <div class="slider semislider" id="slider-tint"></div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                 </ul>
+               </div>
+             </div>
+
+           </div>
+         </div>
+      </div>
+    </div>
+
+    <div id="modal" class="uk-modal" style="display: none; padding-right: 15px;">
+      <div class="uk-modal-dialog">
+        <a href="#" class="uk-modal-close uk-close"></a>
+        <h1>Load Custom SVG as Shape</h1>
+        <p><textarea id="customsvg"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"/></svg></textarea></p>
+        <p><button type="button" class="uk-button" id="loadCustomSVG">Add to Canvas</button></p>
+      </div>
+    </div>
+
+    <div id="webcam" class="uk-modal" style="display: none; padding-right: 15px;">
+      <div class="uk-modal-dialog">
+        <a href="#" class="uk-modal-close uk-close"></a>
+        <h2>Webcam Picture</h2>
+        <div id="webcamDiv">
+          <img id="webcamIMG" src="images/placeholder_400x250.svg" width="640" height="480" alt="">
+          <div id="action-buttons">
+            <button id="take-snapshot">Add to Canvas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <input type="file" id="filesinput" multiple>
+
+  </div>
+
+  <script src="js/jquery-2.1.0.min.js"></script>
+  <script src="js/uikit.min.js"></script>
+  <script src="js/fabric.js"></script>
+  <script src="js/jquery.nouislider.min.js"></script>
+  <script src='js/say-cheese.js'></script>
+  <script src="js/color-thief.js"></script>
+
+  <script src='js/fabric.filters.js'></script>
+  <script src="js/spectrum.js"></script>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -114,7 +114,7 @@ function add(img, x, y) {
         img.left = y;
     } else {
         img.top = Math.floor(Math.random() * (y || canvas.height / 2)) + 1;
-        img.left = Math.floor(Math.random() * (x || canvas.width / 2)) + 1;   
+        img.left = Math.floor(Math.random() * (x || canvas.width / 2)) + 1;
     }
     canvas.add(img);
 }
@@ -392,7 +392,7 @@ function dropimage(imgdata) {
         $(this).parent().remove();
     });
 
-    window.setTimeout(function(){ 
+    window.setTimeout(function(){
         window.scrollTo(0,parseInt(canvas.height+100));
     }, 200);
 }
@@ -430,7 +430,7 @@ $('#clone').on('click', function(event) {
         });
     } else {
         var clone = obj.clone();
-        //clone.set({left:0}); 
+        //clone.set({left:0});
         clone.clipTo = null;
         clone.padding = obj.padding;
         canvas.add(clone);
@@ -438,9 +438,6 @@ $('#clone').on('click', function(event) {
         clone.bringToFront();
     }
 });
-
-
-
 
 var wheelupdate;
 

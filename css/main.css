@@ -117,7 +117,7 @@ position: absolute;
 bottom: 25px;
 right: 20px;
 z-index: 5;
-display: none; 
+display: none;
 }
 
 #button-actions button {
@@ -126,7 +126,7 @@ display: none;
 
 /* test options */
 #textOptions, #allOptions {
-display:none;   
+display:none;
 }
 .imageOptions {
 /* margin-top:15px; */
@@ -158,7 +158,7 @@ font-weight: bold;
 }
 
 #textOptions, #main, #allOptions {
-margin-bottom:15px; 
+margin-bottom:15px;
 }
 .icontwo {
 margin-left:-3px;

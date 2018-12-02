@@ -131,8 +131,6 @@
           </div>
         </nav>
 
-        
-
         <canvas id="canvas"></canvas>
 
         <div id="images"></div>
@@ -160,7 +158,7 @@
             </div>
           </div>
         </div>
-           
+
         <div class="btn-group doublebtn">
           <button class="uk-button">Line</button>
           <input type="text" value="" id="drawing-color" class="noempty">
@@ -220,7 +218,7 @@
             <a class="uk-button" id="fontSizeMinus">
               <span class="uk-icon-font"></span>
               <span class="uk-icon-minus icontwo"></span>
-            </a> 
+            </a>
         </div>
 
         <div class="btn-group uk-hidden-small uk-hidden-medium">
@@ -238,14 +236,14 @@
             <a class="uk-button" id="lineHeightMinus">
               <span class="uk-icon-text-height"></span>
               <span class="uk-icon-minus"></span>
-            </a> 
+            </a>
         </div>
 
         <div class="btn-group doublebtn">
           <button class="uk-button">Text</button>
           <input type="text" value="" id="textcolor" class="noempty">
         </div>
-                      
+
         <div class="btn-group doublebtn uk-hidden-small uk-hidden-medium">
           <button class="uk-button">Back</button>
           <input type="text" value="" id="bgcolor" class="colorp">
@@ -270,7 +268,7 @@
                     <label>Pos X:</label>
                     <input type="number" id="objPosX" value="">
                   </div>
-                                  
+
                   <div class="block">
                     <label>Pos Y:</label>
                     <input type="number" id="objPosY" value="">
@@ -288,19 +286,19 @@
 
                   <div class="block">
                     <label>Width:</label>
-                    <input type="number" id="objWidth" value="">                          
+                    <input type="number" id="objWidth" value="">
                   </div>
-        
+
                   <div class="block">
                     <label>Height:</label>
                     <input type="number" id="objHeight" value="">
                   </div>
-                                  
+
                   <div class="block">
                     <label>Angle:</label>
                     <input type="number" id="objAngle" value="">
                   </div>
-                                 
+
                   <div class="block">
                     <button id="flipx" class="uk-button">Flip Horizontal</button>
                   </div>
@@ -308,7 +306,7 @@
                     <button id="flipy" class="uk-button">Flip Vertical</button>
                   </div>
 
-                </div>                     
+                </div>
 
                 <div class="imageOptions">
                   <h4>Image Filters</h4>
@@ -345,7 +343,7 @@
 
                   <li class="pad15">
 
-                    <div class="slider-wrapper uk-clearfix">                          
+                    <div class="slider-wrapper uk-clearfix">
                       <div class="slider-value"><span>Opacity: </span><span id="slider-opacity-value">0</span></div>
                       <div class="slider" id="slider-opacity"></div>
                     </div>
@@ -353,7 +351,7 @@
                     <div class="buttons">
                       <button id="undo" class="uk-button">Undo</button>
                       <button id="redo" class="uk-button">Redo</button>
-                      
+
                       <button class="uk-button" onclick="canvas.getActiveObject().bringToFront();">Bring to Front</button>
                       <button class="uk-button" onclick="canvas.getActiveObject().sendToBack()">Send to Back</button>
 
@@ -390,7 +388,7 @@
                     <a href="#"><strong>Contrast</strong> <span id="slider-contrast-value">0</span></a>
                     <ul class="uk-nav-sub">
                       <li>
-                        <div class="slider-full uk-clearfix">                          
+                        <div class="slider-full uk-clearfix">
                           <div class="slider fullslider" id="slider-contrast"></div>
                         </div>
                       </li>
@@ -401,7 +399,7 @@
                     <a href="#"><strong>Exposure</strong> <span id="slider-exposure-value">0</span></a>
                     <ul class="uk-nav-sub">
                       <li>
-                        <div class="slider-full uk-clearfix">                          
+                        <div class="slider-full uk-clearfix">
                           <div class="slider fullslider" id="slider-exposure"></div>
                         </div>
                       </li>
@@ -412,7 +410,7 @@
                     <a href="#"><strong>Pixelate</strong> <span id="slider-pixelate-value">0</span></a>
                     <ul class="uk-nav-sub">
                       <li>
-                        <div class="slider-full uk-clearfix">                          
+                        <div class="slider-full uk-clearfix">
                           <div class="slider fullslider" id="slider-pixelate"></div>
                         </div>
                       </li>
@@ -423,7 +421,7 @@
                     <a href="#"><strong>Noise</strong> <span id="slider-noise-value">0</span></a>
                     <ul class="uk-nav-sub">
                       <li>
-                        <div class="slider-full uk-clearfix">                          
+                        <div class="slider-full uk-clearfix">
                           <div class="slider fullslider" id="slider-noise"></div>
                         </div>
                       </li>
@@ -435,7 +433,7 @@
                     <a href="#"><strong>Convolution Matrix</strong></a>
                     <ul class="uk-nav-sub">
                       <li>
-                        <div class="uk-clearfix">  
+                        <div class="uk-clearfix">
                           <div id="customMatrix">
                             <input type="text" value="1" size="3">
                             <input type="text" value="1" size="3">
@@ -466,7 +464,7 @@
                         <div id="tintcolor">
                           <input type="text" value="" class="noempty" id="tint-color">
                         </div>
-                        <div class="slider-full uk-clearfix">                          
+                        <div class="slider-full uk-clearfix">
                           <div class="slider semislider" id="slider-tint"></div>
                         </div>
                       </li>
